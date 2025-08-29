@@ -44,6 +44,7 @@
 <script setup>
 import { ref } from 'vue'
 
+
 const search = ref('')
 
 const headers = [
@@ -112,7 +113,7 @@ const jobs = [
   },
 
   {
-    id: 8,
+    id: 9,
     name: 'Manager',
     company: 'Bidco',
     location: 'Mombasa',
@@ -120,7 +121,7 @@ const jobs = [
   },
 
   {
-    id: 8,
+    id: 10,
     name: 'Manager',
     company: 'Bidco',
     location: 'Mombasa',
@@ -128,7 +129,7 @@ const jobs = [
   },
 
   {
-    id: 8,
+    id: 11,
     name: 'Manager',
     company: 'Bidco',
     location: 'Mombasa',
@@ -136,7 +137,7 @@ const jobs = [
   },
 
   {
-    id: 8,
+    id: 12,
     name: 'Manager',
     company: 'Bidco',
     location: 'Mombasa',
@@ -144,7 +145,7 @@ const jobs = [
   },
 
   {
-    id: 8,
+    id: 13,
     name: 'Manager',
     company: 'Bidco',
     location: 'Mombasa',

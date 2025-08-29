@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto" width="500" color="pink-lighten-4">
+  <v-sheet class="mx-auto" width="1000" color="white">
 
     <v-form ref="form">
       <v-text-field
@@ -55,9 +55,9 @@
           class="mt-4"
           color="success"
           block
-          @click="validate"
+          @click="Submit"
         >
-          Validate
+          Submit
         </v-btn>
 
         <v-btn
@@ -65,18 +65,9 @@
           color="error"
           block
           @click="reset"
-        >
-          Reset Form
-        </v-btn>
-
-        <v-btn
-          class="mt-4"
-          color="warning"
-          block
-          @click="resetValidation"
-        >
-          Reset Validation
-        </v-btn>
+          >
+          Reset
+           </v-btn>
       </div>
     </v-form>
   </v-sheet>
@@ -103,17 +94,15 @@ const phonenumberRules = ref([
 
 const checkbox = ref(false)
 
-async function validate() {
-  const { valid } = await form.value.validate()
+async function Submit() {
+  const { submit } = await form.value.submit()
   if (valid) alert('Form is valid')
 }
 
 function reset() {
   form.value.reset()
+
 }
 
-function resetValidation() {
-  form.value.resetValidation()
-}
 </script>
 ]

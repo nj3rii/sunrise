@@ -20,7 +20,8 @@
     <!-- Section Description -->
     <p class="mb-10 text-center">
       We proudly collaborate with organizations and individuals who share our mission
-      of creating positive impact through training, employment, and support services.
+      of creating positive impact through  employment, and support services.we collaborate with organisations
+      to offer opportunities to the youth and those who have been convicted of mimor offences
     </p>
 
     <!-- Pyramid of Logos -->
@@ -60,9 +61,19 @@ export default {
         { name: "Human Rights & Equality", src: "/logo/Office_of_the_United_Nations_High_Commissioner_for_Human_Rights_logo_in_black.png" },
         { name: "Villarosa", src: "/logo/villarosalogo (3).jpg" },
         { name: "Legalnet", src: "/logo/pexels-ekaterina-bolovtsova-6077181.jpg" },
-        { name: "", src: "/" },
-        { name: "", src: "/" },
-        { name: "", src: "/" }
+        { name: "PeaceCorps", src: "/public/logo/1_b7VSOLyjhvKhJIvKkEhpog-e1600090260478.png" },
+        { name: "WWW", src: "/public/logo/15-min-1.png" },
+        { name: "Imperial leather", src: "/public/logo/imperial-leather.svg" },
+        { name: "Bidco", src: "/public/logo/sddefault.jpg" },
+        { name: "Menengai", src: "/public/logo/menengai-drilling-ltd-504962.jpg" },
+        { name: "Anjarwalaa", src: "/public/logo/profile.png" },
+        { name: "Anjarawalla", src: "/public/logo/Anjarwalla-Khanna-kenya-logo-600x600-1.png" },
+        { name: "Aln", src: "/public/logo/anjarwalla-khanna-advocates-nairobi-523268.jpg" },
+        { name: "kituo", src: "/public/logo/CXyoG2MM_400x400.jpg" },
+        { name: "Fida", src: "/public/logo/FIDA-logo_400x400.jpg" },
+        { name: "LG", src: "/public/logo/Gray Pink Minimalist Attorney Law Logo.mp4" },
+        { name: "Usikimye", src: "/public/logo/Gold and White Minimalist Illustrative Law Firm Logo.png" },
+
       ]
     }
   },

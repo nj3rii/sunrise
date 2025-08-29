@@ -7,7 +7,7 @@
         rail
       >
         <!-- App Logo and Home -->
-        <v-list>ccc
+        <v-list>
           <v-list-item
             prepend-avatar="public/images/Orange Yellow icon Badge Home Decor Logo.png"
             subtitle="legalNet"
@@ -23,7 +23,7 @@
         <v-list density="compact" nav>
           <v-list-item
             prepend-icon="mdi-account-check"
-            title="Ex-Convict Support"
+            title="Legal Aid"
             to="/legalAid"
             router
           />

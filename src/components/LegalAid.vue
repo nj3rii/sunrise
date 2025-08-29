@@ -30,7 +30,7 @@
           <v-card-text class="text-grey-darken-1">{{ law.description }}</v-card-text>
           <v-card-actions>
             <v-btn :href="law.link" target="_blank" color="primary" variant="flat" class="rounded-lg">
-              Read More
+              Read More  
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -85,26 +85,39 @@ export default {
       rightsData: {
         'Criminal Law': [
           { title: 'Right to Legal Representation', content: 'You have the right to a lawyer during questioning and trial.' },
-          { title: 'Right to Remain Silent', content: 'You cannot be forced to incriminate yourself.' }
+          { title: 'Right to Remain Silent', content: 'You cannot be forced to incriminate yourself.' },
+          { link:'public/documents/The Legal Aid (General) Regulations.pdf'}                                                                                    
         ],
         'Family Law': [
           { title: 'Right to Custody Hearing', content: 'Both parents have the right to a fair custody hearing.' },
-          { title: 'Right to Maintenance', content: 'Spouses may be entitled to financial support during separation.' }
+          { title: 'Right to Maintenance', content: 'Spouses may be entitled to financial support during separation.' },
+          { link:'public/documents/divorce_laws_booklet.pdf'}
         ],
         'Employment Law': [
           { title: 'Right to Fair Wages', content: 'You must be paid at least the legal minimum wage.' },
-          { title: 'Right to Safe Workplace', content: 'Employers must provide safe working conditions.' }
+          { title: 'Right to Safe Workplace', content: 'Employers must provide safe working conditions.' },
+          {  link:'public/documents/The_Employment_Act_2007.pdf'}
+        ],
+
+        'Property Law':[
+          { title:'Right to own property', content: 'anyone can own property provided it is acquired legally'},
+          { title:'Acquire proprty legally', content:'One must follow the legall procedures when acquiring property'},
+          { link:'public/documents/property_law_booklet.pdf'}
         ]
       },
       lawsData: {
         'Criminal Law': [
-          { title: 'Understanding Criminal Charges', description: 'What to know about criminal procedures and penalties.', link: 'https://example.com/criminal-law' }
+          { title: 'Understanding Criminal Charges', description: 'What to know about criminal procedures and penalties.', link: 'public/documents/The Legal Aid (General) Regulations.pdf' }
         ],
         'Family Law': [
-          { title: 'Divorce Process', description: 'Learn the legal steps for ending a marriage.', link: 'https://example.com/family-law' }
+          { title: 'Divorce Process', description: 'Learn the legal steps for ending a marriage.', link: 'public/documents/divorce_laws_booklet.pdf' }
         ],
         'Employment Law': [
-          { title: 'Employee Rights', description: 'Know your rights at work and how to claim them.', link: 'https://example.com/employment-law' }
+          { title: 'Employee Rights', description: 'Know your rights at work and how to claim them.', link: 'public/documents/The_Employment_Act_2007.pdf' }
+        ],
+
+        'property law':[
+         {title: 'Property Rights', description:'Property Rightsand Legal Procedures', link: 'public/documents/property_law_booklet.pdf'} 
         ]
       },
       form: {

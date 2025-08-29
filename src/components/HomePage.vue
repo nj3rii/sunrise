@@ -33,18 +33,30 @@
   <v-row class="mt-8">
     <v-col cols="12" md="6">
       <p>
-        Tosha Link is a community-driven platform that empowers individuals — especially ex-convicts and the unemployed — by linking them to food support, jobs, and skill-building opportunities.
+        Legalnet is a community-driven platform that empowers individuals — especially ex-convicts and the unemployed — by linking them to food support, jobs, and skill-building opportunities.
         Our mission is to create second chances through access and dignity.
         We are all about empowering the community and the youth in society...Our organisation supports growth of every individual at their best interests.
         Also, Tosha Link is designed to offer opportunities to all whether a convict or not — so long as you are unemployed there's always room.
         And for those who want to apply to certain institutions for handy skills, our website has a platform for that.
+
+        Also, Tosha Link is designed to offer opportunities to all whether a convict or not — so long as you are unemployed there's always room. And for those who want to apply to certain institutions for handy skills, our website has a platform for that.
+
+We believe that no one should be defined by their past, but by the potential they hold to build a brighter future. By connecting people with employment, training, and mentorship opportunities, we aim to break cycles of poverty and marginalization. Every individual deserves a chance to stand on their feet and live with dignity.
+
+Our platform goes beyond job listings. We connect communities to food support programs, giving hope to families facing tough times. We recognize that stability begins with basic needs, and only when these are met can individuals truly focus on personal and professional growth.
+
+At Legalnet and Tosha Link, inclusivity is at the heart of everything we do. We embrace diversity and welcome anyone who is ready to take the step toward positive change. Whether you are a young person seeking your first job, an ex-convict striving for a fresh start, or someone unemployed looking for new skills, our community is here to walk with you.
+
+We are also building partnerships with training institutions, NGOs, and employers who share our vision. Through these collaborations, we open doors to vocational training, apprenticeships, and career pathways that equip people with skills that are relevant to today’s job market.
+
+Most importantly, we value dignity, respect, and second chances. Everyone has a story, and we believe every story deserves an opportunity for a better chapter. Legalnet and Tosha Link exist to be that bridge — turning challenges into opportunities, and limitations into possibilities.
       </p>
     </v-col>
 <
    
       <v-img
-        src="public/images/Black Orange Modern Job Vacancy Poster.png"
-        height="1000"
+        src="public/images/pexels-ekaterina-bolovtsova-6077476.jpg"
+        max-width="1000"
         cover
       
       ></v-img>
@@ -128,10 +140,11 @@ export default {
   data() {
     return {
       successStories: [
-        { quote: 'Thanks to Tosha Link, I got a job and my life is back on track.'
-                   , name: 'James Kibee' },
-        { quote: 'The training gave me skills I never thought I’d have.', name: 'KImani Karanja' },
-        { quote: 'Legal aid helped me settle and move forward.', name: 'Peter Nyoro' },
+        { quote: 'Thanks to LegalNet, I got a job and my life is back on  as an ex convict we really do go through alot of discrimination especially when looking for job opportunities for our past haunts us but legal net has given us a second chance to life and i am truly grateful.' ,
+         name: 'James Kibee' },
+        { quote: 'The job opportunities provided by LegalNet are diverse.. I was able to secure employment through this website ..And i encourage young people to use this app to secure opportinities',
+         name: 'KImani Karanja' },
+        { quote: 'Legal aid helped me settle and move forward. ', name: 'Peter Nyoro' },
       ],
     };
   },
