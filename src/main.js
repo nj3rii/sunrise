@@ -42,3 +42,16 @@ app.mount('#app')
 
 // Initialize AOS after mount
 AOS.init()
+
+
+// main.js (near other imports)
+import axios from 'axios'
+
+// optional base URL
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
+
+// if token exists on page load, set header
+const token = localStorage.getItem('token')
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+}
