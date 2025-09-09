@@ -1,111 +1,110 @@
 // src/services/auth.service.js
 
-import { ref, computed } from 'vue'
-import TokenService from './token.service'
-import api from './api'
+import { ref, computed } from "vue";
+import TokenService from "./token.service";
+import api from "./api";
 
 // 🔑 Singleton reactive state
-const user = ref(null)
-const abilities = ref({})
-const loading = ref(false)
-const error = ref(null)
+const user = ref(null);
+const abilities = ref({});
+const loading = ref(false);
+const error = ref(null);
 
 // ✅ Composable function
 export function useAuth() {
-
   // Computed: is user authenticated?
-  const isAuthenticated = computed(() => !!user.value)
+  const isAuthenticated = computed(() => !!user.value);
 
   // Computed: is user admin?
-  const isAdmin = computed(() => user.value?.role?.name === 'admin')
+  const isAdmin = computed(() => user.value?.role?.name === "admin");
 
   // Computed: current user and abilities
-  const currentUser = computed(() => user.value)
-  const userAbilities = computed(() => abilities.value)
+  const currentUser = computed(() => user.value);
+  const userAbilities = computed(() => abilities.value);
 
   // Ability checker
   function can(ability) {
-    return abilities.value?.[ability] === true
+    return abilities.value?.[ability] === true;
   }
 
   // Initialize from TokenService on app load
   function initialize() {
-    const savedUser = TokenService.getUser()
-    const savedAbilities = TokenService.getAbilities()
+    const savedUser = TokenService.getUser();
+    const savedAbilities = TokenService.getAbilities();
     if (savedUser) {
-      user.value = savedUser
-      abilities.value = savedAbilities || {}
+      user.value = savedUser;
+      abilities.value = savedAbilities || {};
     }
   }
 
   // Login
   async function login(credentials) {
-    loading.value = true
-    error.value = null
+    loading.value = true;
+    error.value = null;
 
     try {
       if (!credentials.email || !credentials.password) {
-        throw new Error('Email and password are required')
+        throw new Error("Email and password are required");
       }
 
-      const response = await api.post('login', credentials)
-      const { token, user: userData, abilities: userAbilities } = response.data
+      const response = await api.post("login", credentials);
+      const { message, userData, token, token_type } = response.data;
 
       if (token && userData) {
-        user.value = userData
-        abilities.value = userAbilities || {}
+        user.value = userData;
+        abilities.value = {};
 
-        TokenService.setToken(token)
-        TokenService.setUser(userData)
-        TokenService.setAbilities(userAbilities)
-
-        return response
+        TokenService.setToken(token);
+        TokenService.setUser(userData);
+        // TokenService.setAbilities(userAbilities);
+        
+        return response;
       } else {
-        throw new Error('Invalid response format from server')
+        throw new Error("Invalid response format from server");
       }
-
     } catch (err) {
-      error.value = err.response?.data?.message || err.message || 'Login failed'
-      throw err
+      error.value =
+        err.response?.data?.message || err.message || "Login failed";
+      throw err;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
   }
 
   // Register
   async function register(userData) {
-    loading.value = true
-    error.value = null
+    loading.value = true;
+    error.value = null;
     try {
-      return await api.post('register', userData)
+      return await api.post("register", userData);
     } catch (err) {
-      error.value = err.response?.data?.message || 'Registration failed'
-      throw err
+      error.value = err.response?.data?.message || "Registration failed";
+      throw err;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
   }
 
   // Logout
   function logout() {
-    user.value = null
-    abilities.value = {}
-    TokenService.removeToken()
+    user.value = null;
+    abilities.value = {};
+    TokenService.removeToken();
   }
 
   // Profile update
   async function updateProfile(profileData) {
-    loading.value = true
-    error.value = null
+    loading.value = true;
+    error.value = null;
     try {
-      const response = await api.put('update-profile', profileData)
-      user.value = response.data.user || response.data
-      return response
+      const response = await api.put("update-profile", profileData);
+      user.value = response.data.user || response.data;
+      return response;
     } catch (err) {
-      error.value = err.response?.data?.message || 'Profile update failed'
-      throw err
+      error.value = err.response?.data?.message || "Profile update failed";
+      throw err;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
   }
 
@@ -123,53 +122,52 @@ export function useAuth() {
     login,
     register,
     logout,
-    updateProfile
-  }
+    updateProfile,
+  };
 }
-
 
 // ✅ Global service that always uses the singleton state
 const globalAuthService = {
   initialize() {
-    const { initialize } = useAuth()
-    initialize()
+    const { initialize } = useAuth();
+    initialize();
   },
   isAuthenticated() {
-    const { isAuthenticated } = useAuth()
-    return isAuthenticated.value
+    const { isAuthenticated } = useAuth();
+    return isAuthenticated.value;
   },
   isAdmin() {
-    const { isAdmin } = useAuth()
-    return isAdmin.value
+    const { isAdmin } = useAuth();
+    return isAdmin.value;
   },
   getCurrentUser() {
-    const { currentUser } = useAuth()
-    return currentUser.value
+    const { currentUser } = useAuth();
+    return currentUser.value;
   },
   getAbilities() {
-    const { abilities } = useAuth()
-    return abilities.value
+    const { abilities } = useAuth();
+    return abilities.value;
   },
   can(ability) {
-    const { can } = useAuth()
-    return can(ability)
+    const { can } = useAuth();
+    return can(ability);
   },
   login(credentials) {
-    const { login } = useAuth()
-    return login(credentials)
+    const { login } = useAuth();
+    return login(credentials);
   },
   register(userData) {
-    const { register } = useAuth()
-    return register(userData)
+    const { register } = useAuth();
+    return register(userData);
   },
   logout() {
-    const { logout } = useAuth()
-    logout()
+    const { logout } = useAuth();
+    logout();
   },
   updateProfile(profileData) {
-    const { updateProfile } = useAuth()
-    return updateProfile(profileData)
-  }
-}
+    const { updateProfile } = useAuth();
+    return updateProfile(profileData);
+  },
+};
 
-export default globalAuthService
+export default globalAuthService;

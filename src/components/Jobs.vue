@@ -12,7 +12,6 @@
           prepend-inner-icon="mdi-magnify"
           variant="solo-filled"
           flat
-        
         />
       </v-card-title>
 
@@ -21,7 +20,7 @@
       <!-- Job Listings Table -->
       <v-data-table
         v-model:search="search"
-        :items="jobs"
+        :items="jobsStore.jobs"
         :headers="headers"
         class="elevation-1"
       >
@@ -30,7 +29,7 @@
           <v-btn
             size="small"
             color="primary"
-            :to="`/apply/`"
+            :to="`/apply/`"   
             router
           >
             Apply
@@ -42,114 +41,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
+import { ref, onMounted } from 'vue'
+import { useJobsStore } from '@/stores/jobs'
 
 const search = ref('')
+const jobsStore = useJobsStore()
 
 const headers = [
-  { title: 'Job Title', value: 'name' },
+  { title: ' Title', value: 'title' },   // ✅ should match backend field
   { title: 'Company', value: 'company' },
   { title: 'Location', value: 'location' },
   { title: 'Type', value: 'type' },
-  { title: ' duration'},
+  { title: 'Duration', value: 'duration' },
+  { title: 'Description', value:'description'},
+
+  
+  
+// fixed value
   { title: 'Action', value: 'actions', sortable: false }
 ]
 
-const jobs = [
-  {
-    id: 1,
-    name: 'Cleaner',
-    company: 'Cleanco',
-    location: 'Nairobi',
-    type: 'Full-time'
-  },
-  {
-    id: 2,
-    name: 'Kitchen Assistant',
-    company: 'Hope Kitchens',
-    location: 'Nairobi',
-    type: 'Part-time'
-  },
-  {
-    id: 3,
-    name: 'Manager',
-    company: 'Bidco',
-    location: 'Mombasa',
-    type: 'Short Contract'
-  },
-
-  {
-    id: 4,
-    name: 'Hairdresser',
-    company: 'Bestlady Hair Salon',
-    location: 'buruburu',
-    type: 'Short Contract'
-  },
-
-  {
-    id: 5,
-    name: 'Manager',
-    company: 'Bidco',
-    location: 'Mombasa',
-    type: 'Short Contract'
-  },
-
-  {
-    id: 6,
-    name: 'Supervisor',
-    company: 'Building and Constructions agency',
-    location: 'Ruai',
-    type: 'Short Contract'
-  },
-
-
-  {
-    id:7,
-    name: 'Driver',
-    company: '',
-    location: '',
-    type: ''
-  },
-
-  {
-    id: 9,
-    name: 'Manager',
-    company: 'Bidco',
-    location: 'Mombasa',
-    type: 'Short Contract'
-  },
-
-  {
-    id: 10,
-    name: 'Manager',
-    company: 'Bidco',
-    location: 'Mombasa',
-    type: 'Short Contract'
-  },
-
-  {
-    id: 11,
-    name: 'Manager',
-    company: 'Bidco',
-    location: 'Mombasa',
-    type: 'Short Contract'
-  },
-
-  {
-    id: 12,
-    name: 'Manager',
-    company: 'Bidco',
-    location: 'Mombasa',
-    type: 'Short Contract'
-  },
-
-  {
-    id: 13,
-    name: 'Manager',
-    company: 'Bidco',
-    location: 'Mombasa',
-    type: 'Short Contract'
-  }
-]
+onMounted(() => {
+  jobsStore.fetchJobs()   // ✅ load jobs from backend
+})
 </script>

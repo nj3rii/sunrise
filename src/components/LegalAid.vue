@@ -43,103 +43,101 @@
       <p class="mb-4 text-grey-darken-1">
         Fill in the form below to request a lawyer. We’ll match you with the right professional based on your case type.
       </p>
-      <v-form v-model="valid" @submit.prevent="submitBooking">
-        <v-select v-model="form.caseType" :items="caseTypes" label="Case Type"
-          :rules="[v => !!v || 'Case type is required']" required outlined color="red-darken-1"></v-select>
+
+      <v-form ref="formRef" v-model="valid" @submit.prevent="onSubmit">
+        <v-select v-model="form.caseType" :items="store.caseTypes" label="Case Type"
+          :rules="[v => !!v || 'Case type is required']" required outlined color="red-darken-1" />
 
         <v-text-field v-model="form.name" label="Full Name"
-          :rules="[v => !!v || 'Name is required']" required outlined color="red-darken-1"></v-text-field>
+          :rules="[v => !!v || 'Name is required']" required outlined color="red-darken-1" />
 
         <v-text-field v-model="form.email" label="Email" type="email"
-          :rules="[v => !!v || 'Email is required']" required outlined color="red-darken-1"></v-text-field>
+          :rules="[v => !!v || 'Email is required']" required outlined color="red-darken-1" />
 
         <v-text-field v-model="form.phone" label="Phone Number"
-          :rules="[v => !!v || 'Phone is required']" required outlined color="red-darken-1"></v-text-field>
+          :rules="[v => !!v || 'Phone is required']" required outlined color="red-darken-1" />
 
-        <v-text-field v-model="form.date" label="Preferred Appointment Date" type="date" outlined color="red-darken-1"></v-text-field>
+        <v-text-field v-model="form.date" label="Preferred Appointment Date" type="date" outlined color="red-darken-1" />
 
         <v-textarea v-model="form.description" label="Brief Case Description"
-          :rules="[v => !!v || 'Please describe your case']" rows="4" required outlined color="red-darken-1"></v-textarea>
+          :rules="[v => !!v || 'Please describe your case']" rows="4" required outlined color="red-darken-1" />
 
-        <v-btn :disabled="!valid" type="submit" color="red-darken-1" class="mt-4 rounded-lg" block>
-          Submit Booking
+        <v-btn :disabled="!valid || store.submitting" type="submit" color="red-darken-1" class="mt-4 rounded-lg" block>
+          <span v-if="!store.submitting">Submit Booking</span>
+          <span v-else>Submitting…</span>
         </v-btn>
       </v-form>
+
+      <!-- show server validation errors -->
+      <v-alert v-if="submitErrorMsg" dense type="error" class="mt-4">
+        {{ submitErrorMsg }}
+      </v-alert>
+
+      <v-snackbar v-model="snack.show" :color="snack.color" top>
+        {{ snack.text }}
+        <template #actions>
+          <v-btn variant="text" @click="snack.show = false">Close</v-btn>
+        </template>
+      </v-snackbar>
     </v-card>
   </v-container>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      valid: false,
-      caseTypes: [
-        'Criminal Law',
-        'Family Law',
-        'Civil Litigation',
-        'Employment Law',
-        'Property Law',
-        'Other'
-      ],
-      rightsData: {
-        'Criminal Law': [
-          { title: 'Right to Legal Representation', content: 'You have the right to a lawyer during questioning and trial.' },
-          { title: 'Right to Remain Silent', content: 'You cannot be forced to incriminate yourself.' },
-        ],
-        'Family Law': [
-          { title: 'Right to Custody Hearing', content: 'Both parents have the right to a fair custody hearing.'},
-          { title: 'Right to Maintenance', content: 'Spouses may be entitled to financial support during separation.'},
-        ],
-        'Employment Law': [
-          { title: 'Right to Fair Wages', content: 'You must be paid at least the legal minimum wage.' },
-          { title: 'Right to Safe Workplace', content: 'Employers must provide safe working conditions.' },
-        ],
+<script setup>
+import { ref, computed } from 'vue'
+import { useLegalAidStore } from '@/stores/legalAid'
 
-        'Property Law':[
-          { title:'Right to own property', content: 'anyone can own property provided it is acquired legally'},
-          { title:'Acquire property legally', content:'One must follow the legall procedures when acquiring property'},
-        ]
-      },
-      lawsData: {
-        'Criminal Law': [
-          { title: 'Understanding Criminal Charges', description: 'What to know about criminal procedures and penalties.', link: 'public/documents/The Legal Aid (General) Regulations.pdf' }
-        ],
-        'Family Law': [
-          { title: 'Divorce Process', description: 'Learn the legal steps for ending a marriage.', link: 'public/documents/divorce_laws_booklet.pdf' }
-        ],
-        'Employment Law': [
-          { title: 'Employee Rights', description: 'Know your rights at work and how to claim them.', link: 'public/documents/The_Employment_Act_2007.pdf' }
-        ],
+const store = useLegalAidStore()
+const valid = ref(false)
+const formRef = ref(null)
+const snack = ref({ show: false, text: '', color: 'success' })
 
-        'property law':[
-         {title: 'Property Rights', description:'Property Rightsand Legal Procedures', link: 'public/documents/property_law_booklet.pdf'} 
-        ]
-      },
-      form: {
-        caseType: '',
-        name: '',
-        email: '',
-        phone: '',
-        date: '',
-        description: ''
-      }
-    }
-  },
-  computed: {
-    filteredRights() {
-      return this.rightsData[this.form.caseType] || []
-    },
-    filteredLaws() {
-      return this.lawsData[this.form.caseType] || []
-    }
-  },
-  methods: {
-    submitBooking() {
-      console.log('Booking Request:', this.form)
-      alert('Your booking request has been submitted. We will contact you soon.')
-      this.form = { caseType: '', name: '', email: '', phone: '', date: '', description: '' }
-    }
+const form = ref({
+  caseType: '',
+  name: '',
+  email: '',
+  phone: '',
+  date: '',
+  description: ''
+})
+
+// computed rights & laws using store getters
+const filteredRights = computed(() => store.getRights(form.value.caseType))
+const filteredLaws = computed(() => store.getLaws(form.value.caseType))
+
+const submitErrorMsg = computed(() => {
+  // convert server error to readable string if present
+  const e = store.submitError
+  if (!e) return ''
+  // if validation errors exist (422)
+  if (e.errors) {
+    return Object.entries(e.errors).map(([k, v]) => `${k}: ${v.join(', ')}`).join(' — ')
+  }
+  return e.message || JSON.stringify(e)
+})
+
+const onSubmit = async () => {
+  // local simple check
+  if (!formRef.value) return
+  const ok = await formRef.value.validate()
+  if (!ok) return
+
+  try {
+    await store.submitBooking({
+      caseType: form.value.caseType,
+      name: form.value.name,
+      email: form.value.email,
+      phone: form.value.phone,
+      date: form.value.date,
+      // backend expects case_description
+      case_description: form.value.description
+    })
+    snack.value = { show: true, text: 'Booking submitted. We will contact you soon.', color: 'success' }
+    form.value = { caseType: '', name: '', email: '', phone: '', date: '', description: '' }
+  } catch (err) {
+    // store.submitBooking sets store.submitError
+    snack.value = { show: true, text: 'Failed to submit booking. See error below.', color: 'error' }
+    console.error('submitBooking error', err.response?.data ?? err)
   }
 }
 </script>

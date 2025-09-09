@@ -88,7 +88,7 @@
 
             <!-- Welcome message for guests -->
             <p class="text-body-1 text-center mx-auto" style="max-width: 80%">
-              Welcome to Sunrise . Please log in or register to cintinue.
+              Welcome to Sunrise . Please log in or register to continue.
             </p>
 
             <!-- Action buttons for guests -->
